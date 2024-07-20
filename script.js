@@ -40,8 +40,7 @@ function unmuteVideo() {
 // Nasłuchiwanie na komunikaty z iframe
 window.addEventListener('message', function (event) {
     if (event.data) {
-        var data = JSON.parse(event.data);
-        if (data.event === 'onReady') {
+        if (event.data.event === 'onReady') {
             player = iframe;
         }
     }
