@@ -14,3 +14,40 @@ window.addEventListener('message', function(event) {
     widget.setVolume(event.data.volume);
   };
 });
+
+function onYouTubeIframeAPIReady() {
+    var player;
+    var iframe = document.querySelector('iframe');
+
+    // Funkcja do ustawiania głośności
+    window.setVolume = function (volume) {
+        if (player) {
+            player.postMessage(JSON.stringify({
+                event: 'command',
+                func: 'setVolume',
+                args: [volume]
+            }), '*');
+        }
+    }
+
+    // Nasłuchiwanie na komunikaty z iframe
+    window.addEventListener('message', function (event) {
+        if (event.data && event.data.event === 'onReady') {
+            player = iframe.contentWindow;
+        }
+    });
+
+    // Wysyłanie komunikatu do iframe aby zainicjalizować API
+    iframe.contentWindow.postMessage(JSON.stringify({
+        event: 'listening'
+    }), '*');
+}
+
+// Dodanie skryptu YouTube IFrame API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// Funkcja YouTube API ready
+window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
