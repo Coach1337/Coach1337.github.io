@@ -8,10 +8,8 @@
 
 window.addEventListener('message', function(event) {
   if (event.data.message == "volume") {
-    console.log('received volume message with value: '+event.data.volume)
     setVolume(event.data.volume)
   } else if (event.data.message == "unMute") {
-    console.log('received unmute message');
     unmuteVideo()
   };
 });
@@ -21,9 +19,7 @@ var iframe = document.getElementById('youtube-player');
 
 // Funkcja do ustawiania głośności
 function setVolume(volume) {
-    console.log('set volume triggered');
     if (player) {
-        console.log('player is not null');
         player.contentWindow.postMessage(JSON.stringify({
             event: 'command',
             func: 'setVolume',
@@ -33,9 +29,7 @@ function setVolume(volume) {
 }
 
 function unmuteVideo() {
-    console.log('unmute triggered');
     if (player) {
-        console.log('unmute player is not null');
         player.contentWindow.postMessage(JSON.stringify({
             event: 'command',
             func: 'unMute'
@@ -48,7 +42,6 @@ window.addEventListener('message', function (event) {
     if (event.data) {
         var data = JSON.parse(event.data);
         if (data.event === 'onReady') {
-            console.log('onReady triggered');
             player = iframe;
         }
     }
@@ -56,7 +49,6 @@ window.addEventListener('message', function (event) {
 
 // Wysyłanie komunikatu do iframe aby zainicjalizować API
 iframe.onload = function () {
-    console.log('listening post message');
     iframe.contentWindow.postMessage(JSON.stringify({
         event: 'listening'
     }), '*');
@@ -70,8 +62,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Funkcja YouTube API ready
 function onYouTubeIframeAPIReady() {
-    console.log('on ytiframe ready');
-  
     // Inicjalizacja nie jest potrzebna, ponieważ działamy z istniejącym iframe
 }
 
