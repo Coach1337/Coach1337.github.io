@@ -39,7 +39,7 @@ function unmuteVideo() {
 }
 
 // Nasłuchiwanie na komunikaty z iframe
-window.addEventListener('message', function (event) {
+window.addEventListener('message', function(event) {
     if (event.data && firstLoad) {
         var data = JSON.parse(event.data);
         if (data.event === 'onReady') {
@@ -50,7 +50,7 @@ window.addEventListener('message', function (event) {
 });
 
 // Wysyłanie komunikatu do iframe aby zainicjalizować API
-iframe.onload = function () {
+iframe.onload = function() {
     iframe.contentWindow.postMessage(JSON.stringify({
         event: 'listening'
     }), '*');
