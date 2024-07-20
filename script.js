@@ -6,6 +6,6 @@
   document.querySelector('iframe').src = embedUrl.href
 })()
 
-$(window).on('message', function($event) {
-    console.log(event.data.message);
+window.addEventListener('message', function(event) {
+  console.log(event.data.message);
 });
