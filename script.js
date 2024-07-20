@@ -56,6 +56,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // Funkcja YouTube API ready
 function onYouTubeIframeAPIReady() {
     console.log('on ytiframe ready');
+  
     // Inicjalizacja nie jest potrzebna, ponieważ działamy z istniejącym iframe
 }
 
