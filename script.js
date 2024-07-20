@@ -13,35 +13,39 @@ window.addEventListener('message', function(event) {
   };
 });
 
-function onYouTubeIframeAPIReady() {
-    var player;
-    var iframe = document.getElementById('youtube-player');
+var player;
+var iframe = document.getElementById('youtube-player');
 
-    // Funkcja do ustawiania głośności
-    window.setVolume = function (volume) {
-        console.log('set volume triggered');
-        if (player) {
-            console.log('player is not null - setting');
-            player.postMessage(JSON.stringify({
-                event: 'command',
-                func: 'setVolume',
-                args: [volume]
-            }), '*');
-        }
+// Funkcja do ustawiania głośności
+function setVolume(volume) {
+    console.log('set volume triggered');
+    if (player) {
+        console.log('player is not null');
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'setVolume',
+            args: [volume]
+        }), '*');
     }
+}
 
-    // Nasłuchiwanie na komunikaty z iframe
-    window.addEventListener('message', function (event) {
-        if (event.data && event.data.event === 'onReady') {
-            player = iframe.contentWindow;
-        }
-    });
+// Nasłuchiwanie na komunikaty z iframe
+window.addEventListener('message', function (event) {
+    var data = JSON.parse(event.data);
+    console.log(event.data);
+    if (data.event === 'onReady') {
+        console.log('onReady triggered');
+        player = iframe;
+    }
+});
 
-    // Wysyłanie komunikatu do iframe aby zainicjalizować API
+// Wysyłanie komunikatu do iframe aby zainicjalizować API
+iframe.onload = function () {
+    console.log('listening post message');
     iframe.contentWindow.postMessage(JSON.stringify({
         event: 'listening'
     }), '*');
-}
+};
 
 // Dodanie skryptu YouTube IFrame API
 var tag = document.createElement('script');
@@ -50,4 +54,9 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Funkcja YouTube API ready
+function onYouTubeIframeAPIReady() {
+    console.log('on ytiframe ready');
+    // Inicjalizacja nie jest potrzebna, ponieważ działamy z istniejącym iframe
+}
+
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
