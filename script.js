@@ -5,3 +5,7 @@
   const embedUrl = new URL(`https://www.youtube.com/embed/${vid}?${url.searchParams.toString()}`)
   document.querySelector('iframe').src = embedUrl.href
 })()
+
+$(window).on('message', function($event) {
+    console.log(event.data.message);
+});
