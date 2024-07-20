@@ -15,7 +15,7 @@ window.addEventListener('message', function(event) {
 
 function onYouTubeIframeAPIReady() {
     var player;
-    var iframe = document.querySelector('iframe');
+    var iframe = document.getElementById('youtube-player');
 
     // Funkcja do ustawiania głośności
     window.setVolume = function (volume) {
