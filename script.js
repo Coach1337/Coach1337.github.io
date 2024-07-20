@@ -10,6 +10,9 @@ window.addEventListener('message', function(event) {
   if (event.data.message == "volume") {
     console.log('received volume message with value: '+event.data.volume)
     setVolume(event.data.volume)
+  } else if (event.data.message == "unMute") {
+    console.log('received unmute message');
+    unmuteVideo()
   };
 });
 
