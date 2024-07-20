@@ -16,6 +16,7 @@ window.addEventListener('message', function(event) {
 
 var player;
 var iframe = document.getElementById('youtube-player');
+var firstLoad = true;
 
 // Funkcja do ustawiania głośności
 function setVolume(volume) {
@@ -39,9 +40,11 @@ function unmuteVideo() {
 
 // Nasłuchiwanie na komunikaty z iframe
 window.addEventListener('message', function (event) {
-    if (event.data) {
-        if (event.data.event === 'onReady') {
+    if (event.data && firstLoad) {
+        var data = JSON.parse(event.data);
+        if (data.event === 'onReady') {
             player = iframe;
+            firstLoad = false;
         }
     }
 });
