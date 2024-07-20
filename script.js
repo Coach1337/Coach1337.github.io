@@ -35,6 +35,7 @@ function setVolume(volume) {
 function unmuteVideo() {
     console.log('unmute triggered');
     if (player) {
+        console.log('unmute player is not null');
         player.contentWindow.postMessage(JSON.stringify({
             event: 'command',
             func: 'unMute'
