@@ -7,5 +7,10 @@
 })()
 
 window.addEventListener('message', function(event) {
-  console.log(event);
+  if (event.data.message == "volume") {
+    console.log('received volume message with value: '+event.data.volume)
+    let audio_iframe = document.querySelector('iframe');
+    widget = SC.Widget(audio_iframe);
+    widget.setVolume(event.data.volume);
+  };
 });
