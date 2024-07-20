@@ -9,9 +9,7 @@
 window.addEventListener('message', function(event) {
   if (event.data.message == "volume") {
     console.log('received volume message with value: '+event.data.volume)
-    let audio_iframe = document.querySelector('iframe');
-    widget = SC.Widget(audio_iframe);
-    widget.setVolume(event.data.volume);
+    setVolume(event.data.volume)
   };
 });
 
@@ -21,7 +19,9 @@ function onYouTubeIframeAPIReady() {
 
     // Funkcja do ustawiania głośności
     window.setVolume = function (volume) {
+        console.log('set volume triggered');
         if (player) {
+            console.log('player is not null - setting');
             player.postMessage(JSON.stringify({
                 event: 'command',
                 func: 'setVolume',
