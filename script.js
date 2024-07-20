@@ -31,10 +31,12 @@ function setVolume(volume) {
 
 // Nasłuchiwanie na komunikaty z iframe
 window.addEventListener('message', function (event) {
-    var data = JSON.parse(event.data);
-    if (data.event === 'onReady') {
-        console.log('onReady triggered');
-        player = iframe;
+    if (event.data) {
+        var data = JSON.parse(event.data);
+        if (data.event === 'onReady') {
+            console.log('onReady triggered');
+            player = iframe;
+        }
     }
 });
 
