@@ -29,6 +29,16 @@ function setVolume(volume) {
     }
 }
 
+function unmuteVideo() {
+    console.log('unmute triggered');
+    if (player) {
+        player.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'unMute'
+        }), '*');
+    }
+}
+
 // Nasłuchiwanie na komunikaty z iframe
 window.addEventListener('message', function (event) {
     if (event.data) {
